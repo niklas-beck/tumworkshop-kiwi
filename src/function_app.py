@@ -2,7 +2,6 @@ import azure.functions as func
 import logging
 
 app = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
-app2 = func.FunctionApp(http_auth_level=func.AuthLevel.ANONYMOUS)
 
 @app.route(route="http-trigger")
 def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
@@ -28,9 +27,9 @@ def http_trigger(req: func.HttpRequest) -> func.HttpResponse:
 
 # Add a new function here
 
-@app2.route(route="sum")
+@app.route(route="sum")
 def sum(req: func.HttpRequest) -> func.HttpResponse:
     a = req.params.get('a')
     b = req.params.get('b')
-    return func.HttpResponse(f"Sum of {a} and {b} is {a+b}.")
+    return func.HttpResponse(f"Sum of {a} and {b} is {int(a)+int(b)} and the concatenation is {a+b}.")
     
